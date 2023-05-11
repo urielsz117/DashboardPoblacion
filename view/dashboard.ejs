@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        canvas {
+            display: block;
+            margin: 0 auto;
+            max-width: 800px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div style="background-color: rgb(141, 197, 235); text-align: center;">
+        <h1>Poblacion Mundial</h1>
+    </div>
+    <table style="width: 100%;">
+        <tr>
+            <th style="background-color: rgb(102, 144, 172); width: 10%;">
+                <h4>Muestra en Dashboard con grafica de la poblacion mundial, utilizando una API, Axios y NodeJs</h4>
+            </th>
+            <th>
+                <canvas id="populationChart" style="width: 100%;"></canvas>
+            </th>
+        </tr>
+    </table>
+
+    <script>
+        const populationData = <%- JSON.stringify(populationData) %>;
+        const labels = populationData.map(data => data.name);
+        const data = populationData.map(data => data.population);
+        const ctx = document.getElementById('populationChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels,
+                datasets: [{
+                    label: 'Population',
+                    data,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
